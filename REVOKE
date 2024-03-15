@@ -1,0 +1,49 @@
+ create USER rish@'localhost' IDENTIFIED BY 'mypass';
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> create USER jinn@'localhost' IDENTIFIED BY 'alk';
+Query OK, 0 rows affected (0.13 sec)
+
+GRANT SELECT ON INVOICE.customer TO rish@'localhost';
+Query OK, 0 rows affected (0.12 sec)
+
+
+mysql> show grants for rish@'localhost';
++------------------------------------------------------------+
+| Grants for rish@localhost                                  |
++------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `rish`@`localhost`                   |
+| GRANT SELECT ON `INVOICE`.`customer` TO `rish`@`localhost` |
++------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> GRANT SELECT ON INVOICE.customer TO jinn@'localhost';
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> GRANT UPDATE ON INVOICE.customer TO jinn@'localhost';
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> show grants for jinn@'localhost';
++--------------------------------------------------------------------+
+| Grants for jinn@localhost                                          |
++--------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `jinn`@`localhost`                           |
+| GRANT SELECT, UPDATE ON `INVOICE`.`customer` TO `jinn`@`localhost` |
++--------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke select on INVOICE.customer from jinn@'localhost';
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> show grants for jinn@'localhost';
++------------------------------------------------------------+
+| Grants for jinn@localhost                                  |
++------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `jinn`@`localhost`                   |
+| GRANT UPDATE ON `INVOICE`.`customer` TO `jinn`@`localhost` |
++------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+

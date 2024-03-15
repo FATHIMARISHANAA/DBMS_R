@@ -1,0 +1,98 @@
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into student values(566,'hhjuy',90,75,789);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from student;
++---------+--------+------+------+--------+
+| admn_no | name   | mark | age  | hieght |
++---------+--------+------+------+--------+
+|     101 | amala  | 45.3 |   12 |  173.9 |
+|     101 | hudha  | 41.3 |   12 |  169.4 |
+|     103 | hadiya |   48 |   12 |  169.8 |
+|     104 | punya  |   45 |   13 |    171 |
+|     566 | hhjuy  |   90 |   75 |    789 |
++---------+--------+------+------+--------+
+5 rows in set (0.01 sec)
+
+mysql> savepoint s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into student values(576,'uuuy',90,75,789);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into student values(2096,'jjjjy',90,75,789);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++---------+--------+------+------+--------+
+| admn_no | name   | mark | age  | hieght |
++---------+--------+------+------+--------+
+|     101 | amala  | 45.3 |   12 |  173.9 |
+|     101 | hudha  | 41.3 |   12 |  169.4 |
+|     103 | hadiya |   48 |   12 |  169.8 |
+|     104 | punya  |   45 |   13 |    171 |
+|     566 | hhjuy  |   90 |   75 |    789 |
+|     576 | uuuy   |   90 |   75 |    789 |
+|    2096 | jjjjy  |   90 |   75 |    789 |
++---------+--------+------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql> rollback to s3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++---------+--------+------+------+--------+
+| admn_no | name   | mark | age  | hieght |
++---------+--------+------+------+--------+
+|     101 | amala  | 45.3 |   12 |  173.9 |
+|     101 | hudha  | 41.3 |   12 |  169.4 |
+|     103 | hadiya |   48 |   12 |  169.8 |
+|     104 | punya  |   45 |   13 |    171 |
+|     566 | hhjuy  |   90 |   75 |    789 |
+|     576 | uuuy   |   90 |   75 |    789 |
+|    2096 | jjjjy  |   90 |   75 |    789 |
++---------+--------+------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql> rollback to s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++---------+--------+------+------+--------+
+| admn_no | name   | mark | age  | hieght |
++---------+--------+------+------+--------+
+|     101 | amala  | 45.3 |   12 |  173.9 |
+|     101 | hudha  | 41.3 |   12 |  169.4 |
+|     103 | hadiya |   48 |   12 |  169.8 |
+|     104 | punya  |   45 |   13 |    171 |
+|     566 | hhjuy  |   90 |   75 |    789 |
+|     576 | uuuy   |   90 |   75 |    789 |
++---------+--------+------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> rollback to s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++---------+--------+------+------+--------+
+| admn_no | name   | mark | age  | hieght |
++---------+--------+------+------+--------+
+|     101 | amala  | 45.3 |   12 |  173.9 |
+|     101 | hudha  | 41.3 |   12 |  169.4 |
+|     103 | hadiya |   48 |   12 |  169.8 |
+|     104 | punya  |   45 |   13 |    171 |
+|     566 | hhjuy  |   90 |   75 |    789 |
++---------+--------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> 
+
+
