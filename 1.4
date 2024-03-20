@@ -1,0 +1,121 @@
++--------+------+----------+
+| inv_id | p_id | quantity |
++--------+------+----------+
+|    101 |    2 |        1 |
+|    102 |    3 |        1 |
+|    103 |    5 |        4 |
+|    104 |    2 |        5 |
+|    105 |    5 |        3 |
++--------+------+----------+
+ +------+--------+-------+
+| p_id | pname  | price |
++------+--------+-------+
+|    1 | pen    |    60 |
+|    2 | eraser |    30 |
+|    3 | soap   |   135 |
+|    4 | pensil |   420 |
+|    5 | wallet |   165 |
++------+--------+-------+
+
+ 
+ 
+ # List all customer details.
+ select * from customer;
+
+5 rows in set (0.02 sec)
+
+#List pname, price of all products.
+
+select pname,price from product;
++--------+-------+
+| pname  | price |
++--------+-------+
+| pen    |    60 |
+| eraser |    30 |
+| soap   |   135 |
+| pensil |   420 |
+| wallet |   165 |
++--------+-------+
+5 rows in set (0.00 sec)
+
+
+3.    List all invoice items, avoid duplicates.
+
+select distinct p_id from invoice_item;
++------+
+| p_id |
++------+
+|    2 |
+|    3 |
+|    5 |
++------+
+
+
+4.    List product price between 50rs and 150rs
+
+ select * from product where price between 50 and 150;
++------+-------+-------+
+| p_id | pname | price |
++------+-------+-------+
+|    1 | pen   |    60 |
+|    3 | soap  |   135 |
++------+-------+-------+
+2 rows in set (0.00 sec)
+
+5.    List the customer details who lives in ‘ekm’,’tvm’.
+
+select * from customer where city in("ekm","tvm");
++---------+---------+---------+------+------------+
+| cust_id | name    | address | city | ph_no      |
++---------+---------+---------+------+------------+
+|   10002 | HADIYA  | bcvf    | ekm  | 9786594231 |
+|   10003 | ABHINAV | jkulh   | tvm  | 9786594231 |
++---------+---------+---------+------+------------+
+2 rows in set (0.00 sec)
+
+6.    List the invoice details from 1st January 2021 to 31st march 2021
+
+select * from invoice_master where inv_date between '2021-01-01' and '2021-03-31';
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-01-25 |
+|    102 |   10001 | 2021-01-31 |
+|    103 |   10003 | 2021-03-31 |
+|    104 |   10003 | 2021-01-01 |
+|    105 |   10004 | 2021-01-07 |
++--------+---------+------------+
+5 rows in set (0.00 sec)
+
+7.    List the customer details who not live in ‘tvm’.
+
+mysql> select * from customer where city!="tvm";
++---------+---------+----------------+------------+------------+
+| cust_id | name    | address        | city       | ph_no      |
++---------+---------+----------------+------------+------------+
+|   10001 | archana | alikkal        | kozhikode  | 9786594231 |
+|   10002 | HADIYA  | bcvf           | ekm        | 9786594231 |
+|   10004 | AKASH   | pandikkadavath | kozhikod   | 9786594231 |
+|   10005 | SEVAG   | alikkal        | malappuram | 9786594231 |
++---------+---------+----------------+------------+------------+
+4 rows in set (0.00 sec)
+
+8.    List the customers who have no phone number.
+   
+   select * from customer where ph_no is null;
++---------+---------+------------+------+-------+
+| cust_id | name    | address    | city | ph_no |
++---------+---------+------------+------+-------+
+|   10009 | anusree | nbcbdcgdhg | tvm  |  NULL |
++---------+---------+------------+------+-------+
+
+9.    Display customer names in descending order.
+
+  
+10. Display the customer details sorted in ascending by city and descending by names.
+11. Find the customer names start with ‘A’.
+12. Find the customer names who have ‘e’ or ‘a’ in them.
+13. Find the customer names who have at least 3 characters.
+14. List the names of customers their names have ‘r’ in second position.
+15. Find the customer names start with ‘a’ and are at least 3 characters in length.
+
