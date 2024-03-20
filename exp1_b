@@ -75,3 +75,4 @@ ERROR 1146 (42S02): Table 'exp1.employee' doesn't exist
 mysql> DROP TABLE STUDENT;
 
 
+//VERIFIED
