@@ -1,0 +1,83 @@
+       
+        desc product;
+  +-------+-------------+------+-----+---------+-------+
+  | Field | Type        | Null | Key | Default | Extra |
+  +-------+-------------+------+-----+---------+-------+
+  | p_id  | int         | NO   | PRI | NULL    |       |
+  | pname | varchar(10) | YES  |     | NULL    |       |
+  | price | int         | YES  |     | 0       |       |
+  +-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+ ysql> select * from product;
+ +------+--------+-------+
+ | p_id | pname  | price |
+ +------+--------+-------+
+ |    1 | pen    |    60 |
+ |    2 | eraser |    30 |
+ |    3 | soap   |   135 |
+ |    4 | pensil |   420 |
+ |    5 | wallet |   165 |
+ +------+--------+-------+
+5 rows in set (0.03 sec)
+  
+  
+  
+  
+  ^^^^^^^^^^^
+  1.    List product name, price except soap on price order.
+  ^^^^^^^^^^^^^^^^
+  
+  select pname,price from product where pname!='soap' order by price;
++--------+-------+
+| pname  | price |
++--------+-------+
+| eraser |    30 |
+| pen    |    60 |
+| wallet |   165 |
+| pensil |   420 |
++--------+-------+
+4 rows in set (0.00 sec)
+
+     ^^^^^^^^^^^^^^^^^^^^^
+2.    Find minimum, maximum and average price of products.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     mysql> select min(price) as minimum, max(price) as maximum,avg(price) as average from product;
++---------+---------+----------+
+| minimum | maximum | average  |
++---------+---------+----------+
+|      30 |     420 | 162.0000 |
++---------+---------+----------+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3.    Find number of customers in each city.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    mysql> select city,count(cust_id) from customer group by city;
++------------+----------------+
+| city       | count(cust_id) |
++------------+----------------+
+| kozhikode  |              1 |
+| ekm        |              1 |
+| tvm        |              2 |
+| kozhikod   |              1 |
+| malappuram |              1 |
++------------+----------------+
+5 rows in set (0.03 sec)
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+4.    Find number of customers in each city, only include city with more than 3 customers.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ select city,count(*) from customer group by city having count(city >2);
++------------+----------+
+| city       | count(*) |
++------------+----------+
+| tvm        |        3 |
+| kozhikode  |        1 |
+| ekm        |        1 |
+| kozhikod   |        1 |
+| malappuram |        1 |
++------------+----------+
+5 rows in set (0.00 sec)
+
+
