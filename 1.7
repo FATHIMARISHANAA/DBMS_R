@@ -1,0 +1,88 @@
+1.7    OPTIMIZING DATABASE: (JOINS)
+
+
+ select * from product;
++------+--------+-------+
+| p_id | pname  | price |
++------+--------+-------+
+|    1 | pen    |    60 |
+|    2 | eraser |    30 |
+|    3 | soap   |   135 |
+|    4 | pensil |   420 |
+|    5 | wallet |   165 |
++------+--------+-------+
+5 rows in set (0.00 sec)
+
+ select * from invoice_item;;
++--------+------+----------+
+| inv_id | p_id | quantity |
++--------+------+----------+
+|    101 |    2 |        1 |
+|    102 |    3 |        1 |
+|    103 |    5 |        4 |
+|    104 |    2 |        5 |
+|    105 |    5 |        3 |
++--------+------+----------+
+5 rows in set (0.01 sec)
+
+
+
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.    List the product name and quantity of invoice items.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mysql> select pname,quantity from product inner join invoice_item on product.p_id=invoice_item.p_id;
++--------+----------+
+| pname  | quantity |
++--------+----------+
+| eraser |        1 |
+| soap   |        1 |
+| wallet |        4 |
+| eraser |        5 |
+| wallet |        3 |
++--------+----------+
+5 rows in set (0.01 sec)
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2.     Display invoice details of the transaction dated ’31-01-2022’.
+
+
+mysql> select * from customer;
++---------+---------+----------------+------------+------------+
+| cust_id | name    | address        | city       | ph_no      |
++---------+---------+----------------+------------+------------+
+|    2001 | qwer    | assdfggjj      | tvm        |    4556788 |
+|   10001 | archana | alikkal        | kozhikode  | 9786594231 |
+|   10002 | HADIYA  | bcvf           | ekm        | 9786594231 |
+|   10003 | ABHINAV | jkulh          | tvm        | 9786594231 |
+|   10004 | AKASH   | pandikkadavath | kozhikod   | 9786594231 |
+|   10005 | SEVAG   | alikkal        | malappuram | 9786594231 |
+|   10009 | anusree | nbcbdcgdhg     | tvm        |       NULL |
++---------+---------+----------------+------------+------------+
+7 rows in set (0.00 sec)
+
+
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-01-25 |
+|    102 |   10001 | 2021-01-31 |
+|    103 |   10003 | 2021-03-31 |
+|    104 |   10003 | 2021-01-01 |
+|    105 |   10004 | 2021-01-07 |
+|    107 |   10009 | 2018-02-03 |
++--------+---------+------------+
+
+
+mysql> select * from customer INNER JOIN invoice_master on customer.cust_id=invoice_master.cust_id INNER JOIN invoice_item on invoice_master.inv_id=invoice_item.inv_id INNER JOIN product on invoice_item.p_id=product.p_id where inv_date='2021-01-31';
++---------+---------+---------+-----------+------------+--------+---------+------------+--------+------+----------+------+-------+-------+
+| cust_id | name    | address | city      | ph_no      | inv_id | cust_id | inv_date   | inv_id | p_id | quantity | p_id | pname | price |
++---------+---------+---------+-----------+------------+--------+---------+------------+--------+------+----------+------+-------+-------+
+|   10001 | archana | alikkal | kozhikode | 9786594231 |    102 |   10001 | 2021-01-31 |    102 |    3 |        1 |    3 | soap  |   135 |
++---------+---------+---------+-----------+------------+--------+---------+------------+--------+------+----------+------+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
